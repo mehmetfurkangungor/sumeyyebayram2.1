@@ -314,75 +314,52 @@ body.no-scroll {
 
 .envelope-paper {
   position: absolute;
-  top: 32%;
-  left: 11%;
+  top: 26%;
+  left: 3%;
   z-index: 3;
-  width: 78%;
-  min-height: 38%;
-  padding: clamp(18px, 5vw, 28px) clamp(14px, 4vw, 22px);
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(248, 243, 232, 0.96)),
-    var(--bg-cream);
-  border: 1px solid rgba(212, 175, 55, 0.22);
-  border-radius: 10px;
-  box-shadow: 0 16px 32px rgba(84, 70, 53, 0.16);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  width: 94%;
+  min-height: 82%;
+  padding: clamp(24px, 6vw, 34px) clamp(18px, 5vw, 26px);
+  transform-origin: center bottom;
   text-align: center;
   overflow: hidden;
 }
 
-.envelope-paper::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0.18;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paperNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperNoise)' opacity='0.28'/%3E%3C/svg%3E");
-  pointer-events: none;
+.envelope-paper.glass-card::before {
+  opacity: 0.36;
 }
 
-.envelope-paper-frame {
-  position: absolute;
-  inset: 10px;
-  border: 1px solid rgba(212, 175, 55, 0.26);
-  border-radius: 7px;
-  pointer-events: none;
+.envelope-paper-card .hero-initials {
+  font-size: clamp(2rem, 10vw, 3rem);
 }
 
-.envelope-paper-initials {
-  position: relative;
-  font-family: var(--font-names);
-  font-size: clamp(2rem, 10vw, 3.2rem);
-  line-height: 1;
-  color: var(--color-gold-dark);
-  margin-bottom: 10px;
+.envelope-paper-card .hero-names {
+  font-size: clamp(2.55rem, 14vw, 4.3rem);
+  margin: 12px 0;
 }
 
-.envelope-paper-title {
-  position: relative;
-  font-family: var(--font-headings);
-  font-size: clamp(1.15rem, 5.5vw, 1.8rem);
-  line-height: 1.1;
-  color: var(--color-green-dark);
+.envelope-paper-card .hero-tagline {
+  font-size: clamp(1.08rem, 5vw, 1.35rem);
+  margin-bottom: 18px;
 }
 
-.envelope-paper-subtitle {
-  position: relative;
-  margin-top: 10px;
-  font-size: 0.68rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
+.envelope-paper-card .hero-quote {
+  font-size: clamp(0.78rem, 3.8vw, 0.95rem);
+  margin-bottom: 18px;
 }
 
-.envelope-paper-date {
-  position: relative;
-  margin-top: 12px;
-  font-family: var(--font-headings);
-  font-size: 1rem;
-  color: var(--color-gold-dark);
+.envelope-paper-card .hero-info-grid {
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 16px;
+}
+
+.envelope-paper-card .info-item {
+  font-size: clamp(0.78rem, 3.4vw, 0.92rem);
+}
+
+.envelope-paper-card .hero-scroll-cue {
+  margin-top: 14px;
 }
 
 .envelope-seal-button {
@@ -436,8 +413,8 @@ body.no-scroll {
   }
 
   .envelope-paper {
-    top: 34%;
-    min-height: 35%;
+    top: 28%;
+    min-height: 78%;
   }
 }
 
@@ -455,6 +432,13 @@ body.no-scroll {
 /* HERO SECTION CARD */
 .hero-card {
   margin-top: 40px;
+}
+
+.hero-initials {
+  font-family: var(--font-names);
+  font-size: 2.5rem;
+  color: var(--color-gold);
+  margin-bottom: 8px;
 }
 
 .hero-divider {
@@ -489,6 +473,16 @@ body.no-scroll {
   font-size: 1.4rem;
   color: var(--color-gold-dark);
   margin-bottom: 24px;
+}
+
+.hero-quote {
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.hero-scroll-cue {
+  margin-top: 20px;
+  color: var(--color-gold);
 }
 
 .hero-info-grid {
