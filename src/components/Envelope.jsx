@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import HeroInvitationCard from './HeroInvitationCard';
+import envelopeClosedImage from '../../images/zarfkapali.png';
+import envelopeOpenImage from '../../images/zarfacik.png';
 
 const OPEN_SEQUENCE_MS = 2900;
 
@@ -64,7 +66,7 @@ export default function Envelope({ onOpenComplete }) {
 
         <motion.img
           className="envelope-image envelope-image-closed"
-          src="/envelope-closed.png"
+          src={envelopeClosedImage}
           alt=""
           draggable="false"
           animate={{ opacity: isOpening ? 0 : 1, scale: isOpening ? 1.015 : 1 }}
@@ -73,7 +75,7 @@ export default function Envelope({ onOpenComplete }) {
 
         <motion.img
           className="envelope-image envelope-image-open"
-          src="/envelope-open.png"
+          src={envelopeOpenImage}
           alt=""
           draggable="false"
           initial={false}
