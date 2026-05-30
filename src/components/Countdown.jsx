@@ -1,25 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Countdown({ targetDate }) {
   const [timeLeft, setTimeLeft] = useState(null);
-  const [isActive, setIsActive] = useState(false);
+  const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
-    if (!targetDate) {
-      setIsActive(false);
-      return;
-    }
+    if (!targetDate) return;
 
     const targetTime = new Date(targetDate).getTime();
-    if (isNaN(targetTime) || targetTime <= Date.now()) {
-      setIsActive(false);
-      return;
-    }
-
-    setIsActive(true);
+    if (isNaN(targetTime) || targetTime <= Date.now()) return;
 
     const calculateTimeLeft = () => {
-      const difference = targetTime - Date.now();
+      const currentTime = Date.now();
+      const difference = targetTime - currentTime;
+      setNow(currentTime);
       
       if (difference <= 0) {
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -34,11 +28,17 @@ export default function Countdown({ targetDate }) {
       });
     };
 
-    calculateTimeLeft();
+    const firstTick = setTimeout(calculateTimeLeft, 0);
     const interval = setInterval(calculateTimeLeft, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(firstTick);
+      clearInterval(interval);
+    };
   }, [targetDate]);
+
+  const targetTime = targetDate ? new Date(targetDate).getTime() : NaN;
+  const isActive = !isNaN(targetTime) && targetTime > now;
 
   if (!isActive || !timeLeft) {
     return (
