@@ -284,6 +284,7 @@ body.no-scroll {
   z-index: 1000;
   overflow: hidden;
   padding: 18px;
+  animation: envelopeOverlayIn 0.55s ease-out both;
 }
 
 .envelope-scene {
@@ -292,6 +293,35 @@ body.no-scroll {
   aspect-ratio: 1086 / 1448;
   max-height: 92svh;
   filter: drop-shadow(0 24px 38px rgba(61, 53, 48, 0.16));
+  animation: envelopeSceneIn 0.75s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.envelope-overlay.is-opening {
+  pointer-events: none;
+  animation: envelopeOverlayOut 0.55s ease-in-out 3.05s both;
+}
+
+.envelope-overlay.stage-peeking .envelope-scene,
+.envelope-overlay.stage-revealed .envelope-scene,
+.envelope-overlay.stage-leaving .envelope-scene {
+  transform: translateY(-26px) scale(1.01);
+  transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.envelope-shell {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  transform: translateY(0);
+  opacity: 1;
+  transition:
+    transform 1.05s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.85s ease-out;
+}
+
+.envelope-overlay.stage-leaving .envelope-shell {
+  opacity: 0;
+  transform: translateY(760px);
 }
 
 .envelope-image {
@@ -305,24 +335,60 @@ body.no-scroll {
 }
 
 .envelope-image-closed {
-  z-index: 4;
+  z-index: 2;
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.45s ease-out,
+    transform 0.45s ease-out;
 }
 
 .envelope-image-open {
-  z-index: 2;
+  z-index: 3;
+  opacity: 0;
+  transform: scale(0.995);
+  transition:
+    opacity 0.55s ease-out,
+    transform 0.55s ease-out;
+}
+
+.envelope-overlay.is-opening .envelope-image-closed {
+  opacity: 0;
+  transform: scale(1.015);
+}
+
+.envelope-overlay.is-opening .envelope-image-open {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .envelope-paper {
   position: absolute;
   top: 26%;
   left: 3%;
-  z-index: 3;
+  z-index: 2;
   width: 94%;
   min-height: 82%;
   padding: clamp(24px, 6vw, 34px) clamp(18px, 5vw, 26px);
   transform-origin: center bottom;
   text-align: center;
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(138px) scale(0.54) rotate(-1.2deg);
+  transition:
+    opacity 0.5s ease-out,
+    transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.envelope-overlay.stage-peeking .envelope-paper {
+  opacity: 1;
+  transform: translateY(84px) scale(0.58) rotate(-0.4deg);
+}
+
+.envelope-overlay.stage-revealed .envelope-paper,
+.envelope-overlay.stage-leaving .envelope-paper {
+  opacity: 1;
+  transform: translateY(-220px) scale(0.84) rotate(0deg);
 }
 
 .envelope-paper.glass-card::before {
@@ -400,6 +466,100 @@ body.no-scroll {
 
 .envelope-seal-button:disabled {
   cursor: default;
+}
+
+.envelope-overlay.is-opening .envelope-seal-button {
+  opacity: 0;
+  transform: scale(1.18);
+  transition:
+    opacity 0.35s ease-out,
+    transform 0.35s ease-out;
+}
+
+@keyframes envelopeOverlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes envelopeOverlayOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes envelopeSceneIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes envelopeSceneLift {
+  0% { transform: translateY(0) scale(1); }
+  58% { transform: translateY(-26px) scale(1.01); }
+  100% { transform: translateY(-26px) scale(1.01); }
+}
+
+@keyframes envelopeClosedOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.015);
+  }
+}
+
+@keyframes envelopeOpenIn {
+  from {
+    opacity: 0;
+    transform: scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes envelopeNoteReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(138px) scale(0.54) rotate(-1.2deg);
+  }
+  38% {
+    opacity: 1;
+    transform: translateY(84px) scale(0.58) rotate(-0.4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-220px) scale(0.84) rotate(0deg);
+  }
+}
+
+@keyframes envelopeShellDrop {
+  0%, 58% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(760px);
+  }
+}
+
+@keyframes sealOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.18);
+  }
 }
 
 @keyframes sealPulse {
