@@ -83,7 +83,7 @@ export default function App() {
 
       {/* 1. Opening Envelope Scene overlay */}
       {!envelopeOpened && (
-        <EnvelopeIntro onOpenComplete={() => setEnvelopeOpened(true)} />
+        <EnvelopeIntro onComplete={() => setEnvelopeOpened(true)} />
       )}
 
       {/* Main Single Page Web App (Visible when envelope is opened/fading) */}

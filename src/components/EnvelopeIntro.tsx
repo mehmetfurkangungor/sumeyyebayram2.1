@@ -1,134 +1,123 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import HeroInvitationCard from './HeroInvitationCard';
-import envelopeClosedImage from '../../images/zarfkapali.png';
-import envelopeOpenImage from '../../images/zarfacik.png';
 
 type EnvelopeIntroProps = {
-  onOpenComplete: () => void;
+  onComplete?: () => void;
 };
 
-const OPEN_SEQUENCE_MS = 3550;
+type IntroPhase = 'closed' | 'opening' | 'reveal' | 'complete';
 
-export default function EnvelopeIntro({ onOpenComplete }: EnvelopeIntroProps) {
-  const [isOpening, setIsOpening] = useState(false);
+export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
+  const [phase, setPhase] = useState<IntroPhase>('closed');
+  const isOpening = phase !== 'closed';
+  const isReveal = phase === 'reveal' || phase === 'complete';
 
-  const handleOpen = () => {
+  const handleSealClick = () => {
     if (isOpening) return;
 
-    setIsOpening(true);
-    window.setTimeout(onOpenComplete, OPEN_SEQUENCE_MS);
+    setPhase('opening');
+    window.setTimeout(() => setPhase('reveal'), 1250);
+    window.setTimeout(() => {
+      setPhase('complete');
+      onComplete?.();
+    }, 2500);
   };
 
   return (
     <motion.div
       className="envelope-intro-overlay"
       initial={{ opacity: 0 }}
-      animate={{ opacity: isOpening ? 0 : 1 }}
-      transition={{
-        duration: isOpening ? 0.65 : 0.7,
-        delay: isOpening ? 2.95 : 0,
-        ease: 'easeInOut',
-      }}
+      animate={{ opacity: phase === 'complete' ? 0 : 1 }}
+      transition={{ duration: phase === 'complete' ? 0.5 : 0.7, ease: 'easeInOut' }}
     >
-      <motion.div
-        className="envelope-intro-scene"
-        initial={{ opacity: 0, y: 28, scale: 0.96 }}
-        animate={{
-          opacity: 1,
-          y: isOpening ? -24 : 0,
-          scale: isOpening ? 1.01 : 1,
-        }}
-        transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
-      >
+      <div className="css-envelope-stage" aria-hidden={phase === 'complete'}>
         <motion.div
-          className="envelope-intro-card glass-card hero-card envelope-paper-card"
+          className="css-envelope-paper"
           initial={false}
-          animate={
-            isOpening
-              ? {
-                  opacity: [0, 0, 1, 1],
-                  y: [120, 120, 58, -214],
-                  scale: [0.54, 0.54, 0.6, 0.84],
-                  rotate: [-1.2, -1.2, -0.35, 0],
-                }
-              : {
-                  opacity: 0,
-                  y: 120,
-                  scale: 0.54,
-                  rotate: -1.2,
-                }
-          }
-          transition={{
-            duration: 2.25,
-            times: [0, 0.2, 0.48, 1],
-            ease: [0.22, 1, 0.36, 1],
+          animate={{
+            opacity: isOpening ? 1 : 0,
+            scale: isReveal ? 1 : 0.92,
           }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
-          <HeroInvitationCard className="envelope-paper-card" />
+          <motion.div
+            className="css-envelope-paper-content"
+            initial={false}
+            animate={{
+              opacity: isReveal ? 1 : 0,
+              y: isReveal ? 0 : 24,
+            }}
+            transition={{ duration: 0.85, delay: isReveal ? 0.08 : 0, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="css-envelope-monogram">S & B</div>
+            <div className="css-envelope-rule" />
+            <div className="css-envelope-copy">Davetiyemiz</div>
+          </motion.div>
         </motion.div>
 
         <motion.div
-          className="envelope-intro-shell"
+          className="css-envelope-flap css-envelope-flap-top"
           initial={false}
-          animate={
-            isOpening
-              ? {
-                  y: [0, 0, 36, 760],
-                  opacity: [1, 1, 1, 0],
-                }
-              : { y: 0, opacity: 1 }
-          }
-          transition={{
-            duration: 2.7,
-            times: [0, 0.64, 0.76, 1],
-            ease: [0.25, 1, 0.5, 1],
+          animate={{
+            y: isOpening ? '-100vh' : 0,
+            rotateX: isOpening ? -65 : 0,
+            opacity: phase === 'complete' ? 0 : 1,
           }}
+          transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
+        />
+
+        <motion.div
+          className="css-envelope-flap css-envelope-flap-bottom"
+          initial={false}
+          animate={{
+            y: isOpening ? '100vh' : 0,
+            rotateX: isOpening ? 65 : 0,
+            opacity: phase === 'complete' ? 0 : 1,
+          }}
+          transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
+        />
+
+        <motion.div
+          className="css-envelope-flap css-envelope-flap-left"
+          initial={false}
+          animate={{
+            x: isOpening ? '-100vw' : 0,
+            rotateY: isOpening ? -35 : 0,
+            opacity: phase === 'complete' ? 0 : 1,
+          }}
+          transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
+        />
+
+        <motion.div
+          className="css-envelope-flap css-envelope-flap-right"
+          initial={false}
+          animate={{
+            x: isOpening ? '100vw' : 0,
+            rotateY: isOpening ? 35 : 0,
+            opacity: phase === 'complete' ? 0 : 1,
+          }}
+          transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
+        />
+
+        <motion.button
+          className="css-envelope-seal"
+          type="button"
+          aria-label="Zarfı aç"
+          onClick={handleSealClick}
+          disabled={isOpening}
+          animate={{
+            opacity: isOpening ? 0 : 1,
+            scale: isOpening ? 0.75 : [1, 1.035, 1],
+          }}
+          transition={
+            isOpening
+              ? { duration: 0.4, ease: 'easeOut' }
+              : { duration: 1.9, repeat: Infinity, ease: 'easeInOut' }
+          }
         >
-          <motion.img
-            className="envelope-intro-image envelope-intro-image-closed"
-            src={envelopeClosedImage}
-            alt=""
-            draggable="false"
-            initial={false}
-            animate={{
-              opacity: isOpening ? 0 : 1,
-              scale: isOpening ? 1.012 : 1,
-            }}
-            transition={{ duration: 0.85, ease: 'easeInOut' }}
-          />
-
-          <motion.img
-            className="envelope-intro-image envelope-intro-image-open"
-            src={envelopeOpenImage}
-            alt=""
-            draggable="false"
-            initial={false}
-            animate={{
-              opacity: isOpening ? 1 : 0,
-              scale: isOpening ? 1 : 0.992,
-            }}
-            transition={{ duration: 0.85, ease: 'easeInOut' }}
-          />
-
-          <motion.button
-            className="envelope-intro-seal"
-            type="button"
-            aria-label="Zarfı aç"
-            onClick={handleOpen}
-            disabled={isOpening}
-            animate={{
-              opacity: isOpening ? 0 : 1,
-              scale: isOpening ? 1.16 : [1, 1.035, 1],
-            }}
-            transition={
-              isOpening
-                ? { duration: 0.35, ease: 'easeOut' }
-                : { duration: 1.9, repeat: Infinity, ease: 'easeInOut' }
-            }
-          />
-        </motion.div>
-      </motion.div>
+          <span>SB</span>
+        </motion.button>
+      </div>
     </motion.div>
   );
 }
