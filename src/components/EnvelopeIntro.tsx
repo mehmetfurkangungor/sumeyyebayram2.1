@@ -99,24 +99,26 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
           transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
         />
 
-        <motion.button
-          className="css-envelope-seal"
-          type="button"
-          aria-label="Zarfı aç"
-          onClick={handleSealClick}
-          disabled={isOpening}
-          animate={{
-            opacity: isOpening ? 0 : 1,
-            scale: isOpening ? 0.75 : [1, 1.035, 1],
-          }}
-          transition={
-            isOpening
-              ? { duration: 0.4, ease: 'easeOut' }
-              : { duration: 1.9, repeat: Infinity, ease: 'easeInOut' }
-          }
-        >
-          <span>SB</span>
-        </motion.button>
+        <div className="css-envelope-seal-position">
+          <motion.button
+            className="css-envelope-seal"
+            type="button"
+            aria-label="Zarfı aç"
+            onClick={handleSealClick}
+            disabled={isOpening}
+            animate={{
+              opacity: isOpening ? 0 : 1,
+              scale: isOpening ? 0.75 : [1, 1.035, 1],
+            }}
+            transition={
+              isOpening
+                ? { duration: 0.4, ease: 'easeOut' }
+                : { duration: 1.9, repeat: Infinity, ease: 'easeInOut' }
+            }
+          >
+            <span>SB</span>
+          </motion.button>
+        </div>
       </div>
     </motion.div>
   );

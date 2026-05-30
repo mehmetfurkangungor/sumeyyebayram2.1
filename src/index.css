@@ -612,14 +612,19 @@ body.no-scroll {
   background: linear-gradient(270deg, #fffaf0 0%, #ead7b6 100%);
 }
 
-.css-envelope-seal {
+.css-envelope-seal-position {
   position: absolute;
   left: 50%;
-  top: 52%;
+  top: 50%;
   z-index: 5;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+}
+
+.css-envelope-seal {
   width: clamp(74px, 22vw, 104px);
   aspect-ratio: 1;
-  transform: translate(-50%, -50%);
   border: 0;
   border-radius: 50%;
   display: grid;
