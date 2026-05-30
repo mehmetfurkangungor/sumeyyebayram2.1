@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 
 import { invitationData } from './invitationData';
-import Envelope from './components/Envelope';
+import EnvelopeIntro from './components/EnvelopeIntro';
 import Countdown from './components/Countdown';
 import LeafParticles from './components/LeafParticles';
 
@@ -83,7 +83,7 @@ export default function App() {
 
       {/* 1. Opening Envelope Scene overlay */}
       {!envelopeOpened && (
-        <Envelope onOpenComplete={() => setEnvelopeOpened(true)} />
+        <EnvelopeIntro onOpenComplete={() => setEnvelopeOpened(true)} />
       )}
 
       {/* Main Single Page Web App (Visible when envelope is opened/fading) */}
