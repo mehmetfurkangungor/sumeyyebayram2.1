@@ -5,7 +5,6 @@ import {
   MapPin, 
   Calendar, 
   Clock, 
-  MessageCircle,
   ChevronDown
 } from 'lucide-react';
 
@@ -57,8 +56,6 @@ export default function App() {
     },
     viewport: { once: true, margin: '-50px' }
   };
-
-  const whatsappUrl = `https://wa.me/${invitationData.rsvp.phoneNumber}?text=${encodeURIComponent(invitationData.rsvp.messageTemplate)}`;
 
   return (
     <>
@@ -136,7 +133,7 @@ export default function App() {
             <div className="hero-info-grid">
               <div className="info-item">
                 <Calendar size={18} className="info-icon" />
-                <span>{invitationData.eventDateText}</span>
+                <span>{invitationData.eventTimeText}</span>
               </div>
               <div className="info-item">
                 <MapPin size={18} className="info-icon" />
@@ -211,7 +208,7 @@ export default function App() {
                 </div>
                 <div className="detail-info">
                   <span className="detail-label">Saat</span>
-                  <span className="detail-value">Açıklanacak</span>
+                  <span className="detail-value">{invitationData.eventTimeText}</span>
                 </div>
               </div>
 
@@ -286,38 +283,7 @@ export default function App() {
             </div>
           </motion.section>
 
-          {/* 9. Katılım Bilgisi Ver (RSVP) WhatsApp Butonu */}
-          <motion.section 
-            className="glass-card"
-            variants={sectionVariants}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={sectionVariants.viewport}
-            style={{ 
-              border: '1px solid rgba(30, 53, 37, 0.25)',
-              background: 'rgba(238, 243, 239, 0.85)' 
-            }}
-          >
-            <h2 className="section-title">Lütfen LCV Bildiriniz</h2>
-            <p className="body-text" style={{ marginBottom: '20px', color: 'var(--color-text-muted)' }}>
-              {invitationData.rsvp.deadlineText}
-            </p>
-
-            <motion.a 
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-              style={{ width: '100%' }}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <MessageCircle size={20} />
-              WhatsApp ile Katılım Durumu Bildir
-            </motion.a>
-          </motion.section>
-
-          {/* 10. Kapanış */}
+          {/* 9. Kapanış */}
           <motion.section 
             className="glass-card closing-card"
             variants={sectionVariants}

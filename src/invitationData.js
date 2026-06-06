@@ -15,7 +15,8 @@ export const invitationData = {
   // Tarih ve Saat
   // "Tarih & Saat yakında eklenecek" şeklinde placeholder. 
   // Gerçek tarih girildiğinde geri sayım sayacı otomatik olarak çalışacaktır.
-  eventDateText: "Tarih & Saat yakında eklenecek",
+  eventDateText: "Tarih yakında eklenecek",
+  eventTimeText: "12.00 - 16.00",
   
   // Geri sayım için hedef tarih (Format: YYYY-MM-DDTHH:mm:ss)
   // Örn: "2026-09-15T19:00:00". Eğer boş bırakılırsa, geri sayım alanında şık bir "Yakında Tarih Açıklanacak" mesajı gösterilir.
@@ -23,16 +24,9 @@ export const invitationData = {
 
   // Konum Bilgileri
   location: {
-    title: "Ümraniye / İstanbul",
-    address: "İnkılap Mahallesi, Ümraniye / İstanbul",
-    googleMapsUrl: "#", // Google Haritalar linki buraya gelecek
-  },
-
-  // WhatsApp Katılım (RSVP) Bilgisi
-  rsvp: {
-    phoneNumber: "905000000000", // WhatsApp numarası (ülke kodu dahil, örn: 905XXXXXXXXX)
-    messageTemplate: "Merhaba, Sümeyye ve Bayram'ın nişan davetine katılım sağlayacağım.",
-    deadlineText: "Katılım durumunuzu bildirmeniz rica olunur.",
+    title: "Malikane Davet Balo",
+    address: "İnkılap Mah. Küçüksu Cad., Hamamlıdere Sokağı No:7, Ümraniye / İstanbul",
+    googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Malikane%20Davet%20Balo%20%C4%B0nk%C4%B1lap%20Mah.%20K%C3%BC%C3%A7%C3%BCksu%20Cad.%20Hamaml%C4%B1dere%20Soka%C4%9F%C4%B1%20No%3A7%20%C3%9Cmraniye%20%C4%B0stanbul",
   },
 
   // Romantik Giriş Metinleri
@@ -67,24 +61,24 @@ export const invitationData = {
   // Günün Programı / Akış (Timeline)
   program: [
     {
-      time: "19:00",
+      time: "12.00",
       title: "Misafirlerin Karşılanması",
       description: "Bu tatlı heyecan başlarken kapılarımız sizler için açılıyor."
     },
     {
-      time: "19:30",
+      time: "12.30",
       title: "Yüzük Töreni",
       description: "Ömürlük sözümüzü verirken, nişan yüzüklerimiz takılıyor."
     },
     {
-      time: "20:30",
+      time: "14.00",
       title: "Pasta Kesimi & İkramlar",
       description: "Tatlı bir başlangıç ve lezzetli ikramlar eşliğinde kutlama."
     },
     {
-      time: "21:00",
-      title: "Müzik & Eğlence",
-      description: "Gecenin ilerleyen saatlerine kadar dans ve müzikle coşuyoruz."
+      time: "16.00",
+      title: "Kapanış",
+      description: "Mutluluğumuza ortak olduğunuz bu güzel anı sevgiyle tamamlıyoruz."
     }
   ],
 
