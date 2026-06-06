@@ -133,7 +133,7 @@ export default function App() {
             <div className="hero-info-grid">
               <div className="info-item">
                 <Calendar size={18} className="info-icon" />
-                <span>{invitationData.eventTimeText}</span>
+                <span>{invitationData.eventDateText} • {invitationData.eventTimeText}</span>
               </div>
               <div className="info-item">
                 <MapPin size={18} className="info-icon" />
@@ -176,7 +176,6 @@ export default function App() {
             viewport={sectionVariants.viewport}
           >
             <h2 className="section-title">Geri Sayım</h2>
-            <p className="section-subtitle">Kavuşmaya kalan zaman</p>
             <Countdown targetDate={invitationData.countdownTargetDate} />
           </motion.section>
 

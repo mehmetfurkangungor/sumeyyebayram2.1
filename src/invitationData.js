@@ -15,12 +15,12 @@ export const invitationData = {
   // Tarih ve Saat
   // "Tarih & Saat yakında eklenecek" şeklinde placeholder. 
   // Gerçek tarih girildiğinde geri sayım sayacı otomatik olarak çalışacaktır.
-  eventDateText: "Tarih yakında eklenecek",
+  eventDateText: "20 Haziran 2026",
   eventTimeText: "12.00 - 16.00",
   
   // Geri sayım için hedef tarih (Format: YYYY-MM-DDTHH:mm:ss)
   // Örn: "2026-09-15T19:00:00". Eğer boş bırakılırsa, geri sayım alanında şık bir "Yakında Tarih Açıklanacak" mesajı gösterilir.
-  countdownTargetDate: "", 
+  countdownTargetDate: "2026-06-20T12:00:00+03:00", 
 
   // Konum Bilgileri
   location: {
