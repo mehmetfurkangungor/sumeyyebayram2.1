@@ -137,7 +137,7 @@ export default function App() {
               </div>
               <div className="info-item">
                 <MapPin size={18} className="info-icon" />
-                <span>{invitationData.location.address}</span>
+                <span>{invitationData.location.title}</span>
               </div>
             </div>
 
